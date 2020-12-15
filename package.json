@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code-2020",
+  "version": "1.0.0",
+  "description": "My solutions for the Advent of Code 2020 challenge",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint",
+    "day1": "node ./days/day1.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  }
+}
