@@ -29,10 +29,20 @@ const part1 = async () => {
     if (length >= min && length <= max) count++
   }
 
-  console.log(count)
+  console.log(`Part 1: ${count}`)
 }
 
 const part2 = async () => {
+  const passwordsAndPolicies = await handleInput()
+
+  let count = 0
+  for (const { password, char, min, max } of passwordsAndPolicies) {
+    const validCount = (password[min - 1] === char) + (password[max - 1] === char)
+
+    if (validCount === 1) count++
+  }
+
+  console.log(`Part 2: ${count}`)
 }
 
 const main = async () => {
