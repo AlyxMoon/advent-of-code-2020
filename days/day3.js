@@ -47,6 +47,29 @@ const part1 = async () => {
 }
 
 const part2 = async () => {
+  const snowMap = await handleInput()
+
+  const slopes = [
+    [1, 1],
+    [1, 3],
+    [1, 5],
+    [1, 7],
+    [2, 1],
+  ]
+  const countsPerSlope = Array(slopes.length).fill(0)
+
+  for (const [index, slope] of slopes.entries()) {
+    for (
+      let pos = [0, 0];
+      pos[0] <= snowMap.height;
+      pos = snowMap.updatePosition(pos, [slope[0], slope[1]])
+    ) {
+      if (snowMap.getValueAtPosition(pos) === '#') countsPerSlope[index]++
+    }
+  }
+
+  const product = countsPerSlope.reduce((product, val) => product * val, 1)
+  console.log(`Part 2: ${product}`)
 }
 
 const main = async () => {
