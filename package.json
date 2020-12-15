@@ -6,13 +6,20 @@
   "scripts": {
     "lint": "eslint",
     "day1": "node ./days/day1.js",
-    "day2": "node ./days/day2.js"
+    "day2": "node ./days/day2.js",
+    "day3": "node ./days/day3.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.15.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.12.10"
   }
 }
