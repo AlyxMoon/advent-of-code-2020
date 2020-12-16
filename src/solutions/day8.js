@@ -13,9 +13,12 @@ const runProgramOnce = (instructions) => {
     return [...instruction, false]
   })
 
+  let node = activeProgram[0]
+  let index = 0
   let accumulator = 0
   let sanityCheck = 1000000
-  for (let node = activeProgram[0], index = 0; !node[2]; node = activeProgram[index]) {
+
+  while (node && !node[2]) {
     const [op, arg] = node
     node[2] = true
 
@@ -32,21 +35,51 @@ const runProgramOnce = (instructions) => {
       index += arg
     }
 
+    node = activeProgram[index]
+
     if (sanityCheck-- <= 0) {
       return 'Error: Got stuck in infinite loop'
     }
   }
 
-  return accumulator
+  return {
+    program: activeProgram,
+    accumulator,
+    terminatedCleanly: !node,
+  }
+}
+
+const runProgramDiagnostic = (instructions) => {
+  const activeProgram = instructions.slice()
+
+  for (const instruction of activeProgram) {
+    const op = instruction[0]
+    let nextOp
+
+    if (op === 'acc') continue
+    if (op === 'nop') nextOp = 'jmp'
+    if (op === 'jmp') nextOp = 'nop'
+
+    instruction[0] = nextOp
+
+    const result = runProgramOnce(activeProgram)
+    if (result.terminatedCleanly) {
+      return result
+    }
+
+    instruction[0] = op
+  }
 }
 
 const part1 = (rawInput = '') => {
   const program = handleInput(rawInput)
 
-  return runProgramOnce(program)
+  return runProgramOnce(program).accumulator
 }
 
 const part2 = (rawInput = '') => {
+  const program = handleInput(rawInput)
+  return runProgramDiagnostic(program).accumulator
 }
 
 module.exports = {
