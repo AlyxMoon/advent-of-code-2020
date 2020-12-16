@@ -21,6 +21,25 @@ const part1 = async () => {
 }
 
 const part2 = async () => {
+  const responses = (await handleInput()).map(line => line.split(' '))
+
+  let count = 0
+  for (const people of responses) {
+    if (people.length === 1) {
+      count += people[0].length
+      continue
+    }
+
+    let tempCount = 0
+    const [first, ...others] = people
+    for (const option of first) {
+      tempCount += others.every(person => person.includes(option))
+    }
+
+    count += tempCount
+  }
+
+  console.log(`Part 2: ${count}`)
 }
 
 const main = async () => {
