@@ -1,4 +1,3 @@
-const getInput = require('../lib/getInput')
 
 class SnowMap {
   grid = []
@@ -27,12 +26,12 @@ class SnowMap {
   }
 }
 
-const handleInput = async () => {
-  return new SnowMap(await getInput(3))
+const handleInput = (rawInput = '') => {
+  return new SnowMap(rawInput)
 }
 
-const part1 = async () => {
-  const snowMap = await handleInput()
+const part1 = (rawInput = '') => {
+  const snowMap = handleInput(rawInput)
   let count = 0
 
   for (
@@ -43,11 +42,11 @@ const part1 = async () => {
     if (snowMap.getValueAtPosition(pos) === '#') count++
   }
 
-  console.log(`Part 1: ${count}`)
+  return count
 }
 
-const part2 = async () => {
-  const snowMap = await handleInput()
+const part2 = (rawInput = '') => {
+  const snowMap = handleInput(rawInput)
 
   const slopes = [
     [1, 1],
@@ -68,13 +67,11 @@ const part2 = async () => {
     }
   }
 
-  const product = countsPerSlope.reduce((product, val) => product * val, 1)
-  console.log(`Part 2: ${product}`)
+  return countsPerSlope.reduce((product, val) => product * val, 1)
 }
 
-const main = async () => {
-  await part1()
-  await part2()
+module.exports = {
+  handleInput,
+  part1,
+  part2,
 }
-
-main()

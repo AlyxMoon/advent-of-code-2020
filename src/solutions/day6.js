@@ -1,14 +1,11 @@
-const getInput = require('../lib/getInput')
 
-const handleInput = async () => {
-  return (await getInput(6))
-    .replace(/\s/g, ' ')
-    .split('  ')
+const handleInput = (rawInput = '') => {
+  return rawInput.replace(/\s/g, ' ').split('  ')
 }
 
-const part1 = async () => {
+const part1 = (rawInput = '') => {
   const options = [...Array(26)].map((_, i) => String.fromCharCode(97 + i))
-  const responses = await handleInput()
+  const responses = handleInput(rawInput)
 
   let count = 0
   for (const response of responses) {
@@ -17,11 +14,11 @@ const part1 = async () => {
     }, 0)
   }
 
-  console.log(`Part 1: ${count}`)
+  return count
 }
 
-const part2 = async () => {
-  const responses = (await handleInput()).map(line => line.split(' '))
+const part2 = (rawInput = '') => {
+  const responses = handleInput(rawInput).map(line => line.split(' '))
 
   let count = 0
   for (const people of responses) {
@@ -39,12 +36,11 @@ const part2 = async () => {
     count += tempCount
   }
 
-  console.log(`Part 2: ${count}`)
+  return count
 }
 
-const main = async () => {
-  await part1()
-  await part2()
+module.exports = {
+  handleInput,
+  part1,
+  part2,
 }
-
-main()

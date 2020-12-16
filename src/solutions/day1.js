@@ -1,26 +1,23 @@
-const getInput = require('../lib/getInput')
-
-const handleInput = async () => {
-  return (await getInput(1)).trim().split('\n')
+const handleInput = (rawInput = '') => {
+  return rawInput.trim().split('\n')
 }
 
-const part1 = async () => {
+const part1 = (rawInput = '') => {
   const sumVal = 2020
   const numMap = new Map(
-    (await handleInput()).map(line => [Number(line), null]),
+    handleInput(rawInput).map(line => [Number(line), null]),
   )
 
   for (const num of numMap.keys()) {
     if (numMap.has(sumVal - num)) {
-      console.log(`Part 1: ${num * (sumVal - num)}`)
-      break
+      return num * (sumVal - num)
     }
   }
 }
 
-const part2 = async () => {
+const part2 = (rawInput = '') => {
   const sumVal = 2020
-  const nums = (await handleInput()).map(Number)
+  const nums = handleInput(rawInput).map(Number)
 
   for (let x = 0; x < nums.length - 2; x++) {
     for (let y = x + 1; y < nums.length - 1; y++) {
@@ -31,17 +28,15 @@ const part2 = async () => {
         const val3 = nums[z]
 
         if (val1 + val2 + val3 === sumVal) {
-          console.log(`Part 2: ${val1 * val2 * val3}`)
-          break
+          return val1 * val2 * val3
         }
       }
     }
   }
 }
 
-const main = async () => {
-  await part1()
-  await part2()
+module.exports = {
+  handleInput,
+  part1,
+  part2,
 }
-
-main()

@@ -2,26 +2,24 @@
   "name": "advent-of-code-2020",
   "version": "1.0.0",
   "description": "My solutions for the Advent of Code 2020 challenge",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node src/index.js",
     "lint": "eslint",
-    "day1": "node ./days/day1.js",
-    "day2": "node ./days/day2.js",
-    "day3": "node ./days/day3.js",
-    "day4": "node ./days/day4.js",
-    "day5": "node ./days/day5.js",
-    "day6": "node ./days/day6.js",
-    "day7": "node ./days/day7.js"
+    "test": "jest --config test/unit/jest.conf.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "eslint": "^7.15.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "jest": "^26.6.3"
   },
   "dependencies": {
     "@babel/preset-env": "^7.12.10"

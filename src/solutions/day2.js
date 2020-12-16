@@ -1,7 +1,6 @@
-const getInput = require('../lib/getInput')
 
-const handleInput = async () => {
-  const rawData = (await getInput(2)).trim().split('\n')
+const handleInput = (rawInput = '') => {
+  const rawData = rawInput.trim().split('\n')
 
   return rawData.map(line => {
     const [policy, password] = line.split(':')
@@ -17,8 +16,8 @@ const handleInput = async () => {
   })
 }
 
-const part1 = async () => {
-  const passwordsAndPolicies = await handleInput()
+const part1 = (rawInput = '') => {
+  const passwordsAndPolicies = handleInput(rawInput)
 
   let count = 0
   for (const { password, char, min, max } of passwordsAndPolicies) {
@@ -29,11 +28,11 @@ const part1 = async () => {
     if (length >= min && length <= max) count++
   }
 
-  console.log(`Part 1: ${count}`)
+  return count
 }
 
-const part2 = async () => {
-  const passwordsAndPolicies = await handleInput()
+const part2 = (rawInput = '') => {
+  const passwordsAndPolicies = handleInput(rawInput)
 
   let count = 0
   for (const { password, char, min, max } of passwordsAndPolicies) {
@@ -42,12 +41,11 @@ const part2 = async () => {
     if (validCount === 1) count++
   }
 
-  console.log(`Part 2: ${count}`)
+  return count
 }
 
-const main = async () => {
-  await part1()
-  await part2()
+module.exports = {
+  handleInput,
+  part1,
+  part2,
 }
-
-main()

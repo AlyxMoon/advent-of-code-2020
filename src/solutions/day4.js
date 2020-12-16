@@ -1,4 +1,3 @@
-const getInput = require('../lib/getInput')
 
 class Passport {
   data = {}
@@ -64,10 +63,8 @@ class Passport {
   }
 }
 
-const handleInput = async () => {
-  const rawData = await getInput(4)
-
-  const passports = rawData.trim()
+const handleInput = (rawInput = '') => {
+  const passports = rawInput.trim()
     .replace(/\s/g, ' ')
     .split('  ')
     .map(passportFields => {
@@ -85,35 +82,34 @@ const handleInput = async () => {
   return passports
 }
 
-const part1 = async () => {
+const part1 = (rawInput = '') => {
   const requiredFields = [
     'byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid',
   ]
 
-  const passports = await handleInput()
+  const passports = handleInput(rawInput)
   let validCount = 0
 
   for (const passport of passports) {
     validCount += requiredFields.every(field => field in passport.data)
   }
 
-  console.log(`Part 1: ${validCount}`)
+  return validCount
 }
 
-const part2 = async () => {
-  const passports = await handleInput()
+const part2 = (rawInput = '') => {
+  const passports = handleInput(rawInput)
   let validCount = 0
 
   for (const passport of passports) {
     validCount += !!passport.validate()
   }
 
-  console.log(`Part 2: ${validCount}`)
+  return validCount
 }
 
-const main = async () => {
-  await part1()
-  await part2()
+module.exports = {
+  handleInput,
+  part1,
+  part2,
 }
-
-main()

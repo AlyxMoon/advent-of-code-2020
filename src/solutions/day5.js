@@ -1,7 +1,6 @@
-const getInput = require('../lib/getInput')
 
-const handleInput = async () => {
-  return (await getInput(5))
+const handleInput = (rawInput = '') => {
+  return rawInput
     .split('\n')
     .map(line => [
       line.trim().slice(0, 7),
@@ -34,8 +33,8 @@ const runPartitionerCols = (instructions = '') => {
   return runPartitioner(instructions, 7)
 }
 
-const part1 = async () => {
-  const instructions = await handleInput()
+const part1 = (rawInput = '') => {
+  const instructions = handleInput(rawInput)
   let max = 0
 
   for (const [rowInstruction, colInstruction] of instructions) {
@@ -45,11 +44,11 @@ const part1 = async () => {
     max = Math.max(max, row * 8 + col)
   }
 
-  console.log(`Part 1: ${max}`)
+  return max
 }
 
-const part2 = async () => {
-  const instructions = await handleInput()
+const part2 = (rawInput = '') => {
+  const instructions = handleInput(rawInput)
 
   const availableSeats = new Map()
   for (let row = 0; row < 128; row++) {
@@ -68,14 +67,12 @@ const part2 = async () => {
   for (const id of availableSeats.keys()) {
     if (availableSeats.has(id - 1) || availableSeats.has(id + 1)) continue
 
-    console.log(`Part 2: ${id}`)
-    break
+    return id
   }
 }
 
-const main = async () => {
-  await part1()
-  await part2()
+module.exports = {
+  handleInput,
+  part1,
+  part2,
 }
-
-main()
