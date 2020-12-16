@@ -68,7 +68,7 @@ const handleInput = async () => {
   const rawData = await getInput(4)
 
   const passports = rawData.trim()
-    .replace(/(\r\n|\r)/g, '\n').replace(/\s/g, ' ')
+    .replace(/\s/g, ' ')
     .split('  ')
     .map(passportFields => {
       const formattedData = {}
