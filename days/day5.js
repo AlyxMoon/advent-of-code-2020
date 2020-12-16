@@ -49,6 +49,28 @@ const part1 = async () => {
 }
 
 const part2 = async () => {
+  const instructions = await handleInput()
+
+  const availableSeats = new Map()
+  for (let row = 0; row < 128; row++) {
+    for (let col = 0; col < 8; col++) {
+      availableSeats.set(row * 8 + col, null)
+    }
+  }
+
+  for (const [rowInstruction, colInstruction] of instructions) {
+    const row = runPartitionerRows(rowInstruction)
+    const col = runPartitionerCols(colInstruction)
+
+    availableSeats.delete(row * 8 + col)
+  }
+
+  for (const id of availableSeats.keys()) {
+    if (availableSeats.has(id - 1) || availableSeats.has(id + 1)) continue
+
+    console.log(`Part 2: ${id}`)
+    break
+  }
 }
 
 const main = async () => {
