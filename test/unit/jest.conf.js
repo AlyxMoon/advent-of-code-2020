@@ -6,6 +6,7 @@ module.exports = {
     'js',
   ],
   moduleNameMapper: {
+    '^@lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@solutions/(.*)$': '<rootDir>/src/solutions/$1',
   },
   transform: {

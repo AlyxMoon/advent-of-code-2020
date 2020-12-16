@@ -1,6 +1,6 @@
 
 const handleInput = (rawInput = '') => {
-  return rawInput.split('\n')
+  return rawInput.trim().split('\n')
     .reduce((rules, line) => {
       const parts = line.split('contain')
       const bag = parts[0].replace(/bags?/, '').trim()
@@ -29,19 +29,20 @@ const containsBagInChain = (rules, currentBags, bagType) => {
   return false
 }
 
-const countBagsInChain = (rules, currentBags, count = 1) => {
+const countBagsInChain = (rules, currentBags) => {
   if (!currentBags) return 0
 
+  let count = 0
   for (const [bag, bagCount] of currentBags) {
     if (!bag) continue
-    count = bagCount * countBagsInChain(rules, rules[bag], 1)
+    count += bagCount + (bagCount * countBagsInChain(rules, rules[bag]))
   }
 
   return count
 }
 
-const part1 = async (rawInput = '') => {
-  const bagRules = await handleInput(rawInput)
+const part1 = (rawInput = '') => {
+  const bagRules = handleInput(rawInput)
   let answer = 0
 
   for (const innerBags of Object.values(bagRules)) {
@@ -51,8 +52,8 @@ const part1 = async (rawInput = '') => {
   return answer
 }
 
-const part2 = async (rawInput = '') => {
-  const bagRules = await handleInput(rawInput)
+const part2 = (rawInput = '') => {
+  const bagRules = handleInput(rawInput)
   const answer = countBagsInChain(bagRules, bagRules['shiny gold'])
 
   return answer
