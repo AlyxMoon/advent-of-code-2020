@@ -21,7 +21,36 @@ const part1 = (rawInput = '') => {
   return diff1 * diff3
 }
 
+const part2 = (rawInput = '') => {
+  const adapters = new Map(
+    handleInput(rawInput).map(adapter => [
+      adapter,
+      -1,
+    ]),
+  )
+
+  adapters.set(Math.max(...adapters.keys()), 1)
+
+  const countPossiblePathsFromNode = (node, count = 0) => {
+    let tempCount = 0
+
+    for (let i = node + 1; i < node + 4; i++) {
+      if (!adapters.has(i)) continue
+
+      tempCount += adapters.get(i) > -1
+        ? adapters.get(i)
+        : countPossiblePathsFromNode(i, count)
+    }
+
+    adapters.set(node, count + tempCount)
+    return adapters.get(node)
+  }
+
+  return countPossiblePathsFromNode(0)
+}
+
 module.exports = {
   handleInput,
   part1,
+  part2,
 }
